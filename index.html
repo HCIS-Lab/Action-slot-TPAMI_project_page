@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Action-slot: Egocentric Action-centric
+        Representations for Atomic Activity
+        Understanding in Traffic Scenes</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
+        .author-name {
+            display: inline-block;
+            margin: 0 5px;
+        }
+        /* Styles for author names that are clickable links */
+        a.author-name {
+            color: #025978; /* Replace with your preferred hex code or color name */
+            text-decoration: none; /* Removes the default link underline */
+            transition: color 0.3s ease; /* Makes the color change smooth */
+        }
+
+        .affiliations {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .affiliation-name {
+            display: inline-block;
+            margin: 0 15px; /* 讓不同機構之間保持距離 */
+        }
+        sup {
+            font-size: 0.7em;
+            color: #777;
+            margin-left: 2px;
+        }
+        /* 新的按鈕連結樣式 */
+        .links {
+            margin-top: 25px;
+            color: #025978;
+            display: flex; /* 使用 Flexbox 讓按鈕水平排列且置中 */
+            justify-content: center;
+            flex-wrap: wrap; /* 讓小螢幕時按鈕可以自動換行 */
+            gap: 10px; /* 按鈕之間的間距 */
+        }
+        .btn-link {
+            display: inline-flex; /* 讓圖示和文字垂直置中 */
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #343a40; /* 深灰色背景，類似圖片中的顏色 */
+            color: #fff !important; /* 文字顏色強制為白色 */
+            text-decoration: none;
+            border-radius: 30px; /* 圓角效果 */
+            font-size: 1em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid transparent; /* 預留邊框位置 */
+        }
+        .btn-link i {
+            margin-right: 8px; /* 圖示和文字之間的距離 */
+            font-size: 1.1em;
+        }
+        /* 滑鼠懸停時的效果 */
+        .btn-link:hover {
+            background-color: #495057;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            transform: translateY(-2px); /* 輕微上浮效果 */
+        }
+        .teaser {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .teaser img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        section {
+            margin-bottom: 40px;
+        }
+        h2 {
+            text-align: center; /* 加上這行讓文字置中 */
+            color: #025978;
+            border-bottom: 2px solid #eee;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.5em;
+        }
+        /* 實驗結果 GIF 矩陣排版 */
+        .gif-matrix {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 建立兩個等寬的欄位 */
+            gap: 20px; /* 設定 GIF 之間的間距 */
+            margin-top: 30px;
+            margin-bottom: 30px;
+        }
+        .gif-item {
+            text-align: center; /* 讓每張圖底下的說明文字置中 */
+        }
+        .gif-item img {
+            width: 100%; /* 讓圖片自動填滿網格寬度 */
+            border-radius: 8px; /* 加上圓角讓視覺更柔和 */
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 加上淡淡的陰影提升質感 */
+        }
+        .gif-caption {
+            font-size: 0.9em;
+            color: #333;
+            margin-top: 10px;
+            font-weight: bold; /* 加入這行讓字體變粗 */
+        }
+
+        /* 手機版響應式設計：螢幕寬度小於 600px 時改為單欄排列 */
+        @media (max-width: 600px) {
+            .gif-matrix {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .bibtex {
+            background-color: #f4f4f4;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Action-slot: Egocentric Action-centric
+        Representations for Atomic Activity
+        Understanding in Traffic Scenes
+    </h1>
+    <div class="authors">
+        <a href="https://www.linkedin.com/in/yu-ho-chang-91398b223/" class="author-name">Yu-Ho Chang<sup>1</sup></a>, 
+        <a href="https://hankkung.github.io/website/" class="author-name">Chi-Hsi Kung<sup>1</sup></a>, 
+        <a href="https://sites.google.com/site/yihsuantsai/" class="author-name">Yi-Hsuan Tsai<sup>2</sup></a>, 
+        <a href="https://sites.google.com/site/yitingchen0524" class="author-name">Yi-Ting Chen<sup>1</sup></a>, 
+    </div>
+    
+    <div class="affiliations">
+        <span class="affiliation-name"><sup>1</sup>National Yang Ming Chiao Tung University</span>
+        <span class="affiliation-name"><sup>2</sup>Atmanity Inc. </span>
+    </div>
+    
+    <div class="links">
+        <a href="#paper-link" class="btn-link">
+            <i class="fas fa-file-pdf"></i> Paper
+        </a>
+        <!--         
+        <a href="https://arxiv.org/abs/xxxx.xxxxx" class="btn-link">
+            <i class="fas fa-file-pdf"></i> arXiv </a>
+        -->
+        <a href="#github-link" class="btn-link code-btn">
+            <i class="fab fa-github"></i> Code
+        </a>
+        <a href="#dataset-link" class="btn-link">
+            <i class="fas fa-database"></i> Dataset
+        </a>
+        <a href="#video-link" class="btn-link">
+            <i class="fab fa-youtube"></i> Video
+        </a>
+    </div>
+</header>
+
+<div class="teaser">
+    <img src="images/action_slot_viz.gif" alt="Teaser Image">
+</div>
+
+<section>
+    <h2>Abstract</h2>
+    <p>In this paper, we study atomic activity understanding, in traffic scenes. Holistically understanding the atomic activity in traffic scenes requires capturing multiple road users’ motions and their contextual information. Drawing inspiration from the recent success of
+        slot attention in unsupervised object discovery by decomposing visual input into individual slots, we propose Action-slot, a slot
+        attention–based framework that learns action-centric visual representations for traffic scene videos. The key idea is to design action
+        slots that selectively attend to regions where atomic activities occur, without requiring explicit object-level guidance. We further
+        introduce a background slot that competes with action slots, encouraging the model to disregard irrelevant background regions. We
+        supervise Action-slot on multi-label atomic activity recognition and propose an attention-guided pseudo mask refinement framework for
+        weakly-supervised localization. The framework leverages Action-slot’s attention maps, using attention differences before and after
+        inpainting the initial pseudo mask area to highlight target regions and reduce false-positive regions from coarse, diffuse attention. To
+        comprehensively evaluate Action-slot, we construct the Traffic Activity Recognition (TACO) dataset, which addresses the class
+        imbalance of OATS inherent from the real-world distribution and further augments it with pixel-level annotations to evaluate localization.
+        Experimental results demonstrate that Action-slot significantly outperforms various recognition models across multiple datasets, and
+        further provide strong guidance for generating pseudo masks for localization combined with our refinement framework, leading to
+        superior performance compared with existing weakly-supervised localization baselines.</p>
+</section>
+
+<section>
+    <h2>Action-slot for Atomic Activity Understanding</h2>
+    <div style="text-align: center; margin-top: 20px;">
+        <img src="./images/PAMI_teaser.jpg" alt="architecture" style="max-width: 100%; border-radius: 8px;">
+    </div>
+    <p>Illustration of the proposed Action-slot. In the scene, three atomic activities are presented and depicted by colored arrows. For example,
+        the red arrow is the Z1-Z4: C+ atomic activity, indicating a group of vehicles turning left. We introduce Action-slot that decomposes multiple atomic
+        activities in videos into individual slots. We demonstrate that Action-slot can effectively recognize multiple atomic activities and provide guidance for
+        localizing target activities in complex traffic scenes, given only video-level atomic activity labels.</p>
+</section>
+
+<section>
+    <h2>
+        Object Guidance vs. The Proposed Guidance
+    </h2>
+    <p>
+        We compare object instance mask guidance with Action-slot that is guided with \(L_{bg}\) and \(L_{neg}\) mentioned in Sec. 4.3. . We hpothesize that the object guidance can mislead the model because not all road users are involved in an activity. To verify it, we first create scenarios where presents many static pedestrians. Note that there is no atomic activity presented in the scenarios. Then we visualize the attention from the any slot that predicts false positive. The object-guided model is confused by the static road users and makes false positive predictions. While our Action-slot shows strong robustness in the scenarios
+    </p>
+    <div style="text-align: center; margin-top: 20px;">
+        <img src="./images/fp.gif" alt="architecture" style="max-width: 100%; border-radius: 8px;">
+    </div>
+</section>
+    
+
+<section>
+    <h2>Localization Results on TACO Dataset</h2>
+    <div class="gif-matrix">
+    
+        <div class="gif-item">
+            <img src="./images/loc_results_1.gif" alt="Result Scenario 1">
+            <div class="gif-caption"><em>Z1-Z2:C</em></div>
+        </div>
+    
+        <div class="gif-item">
+            <img src="./images/loc_results_2.gif" alt="Result Scenario 1">
+            <div class="gif-caption"><em>Z3-Z1:C</em></div>
+        </div>
+    
+        <div class="gif-item">
+            <img src="./images/loc_results_3.gif" alt="Result Scenario 1">
+            <div class="gif-caption"><em>Z4-Z1:C</em></div>
+        </div>
+    
+        <div class="gif-item">
+            <img src="./images/loc_results_4.gif" alt="Result Scenario 1">
+            <div class="gif-caption"><em>Z4:Z3:C</em></div>
+        </div>
+    
+    </div>
+    <p> </p>
+</section>
+
+<section>
+    <h2 style="text-align: left; color: black;">BibTeX</h2> 
+    <pre class="bibtex"><code>@article{yourlastname2026paper,
+  title={Action-slot: Egocentric Action-centric
+    Representations for Atomic Activity
+    Understanding in Traffic Scenes},
+  author={Lastname, Firstname and Mentor, Name},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence},
+  year={2026}
+}</code></pre>
+</section>
+
+<!-- 
+<section>
+    <h2>Acknowledgements</h2>
+    <p></p>
+</section>
+
+</body>
+</html> -->
