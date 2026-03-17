@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Action-slot: Egocentric Action-centric
-        Representations for Atomic Activity
-        Understanding in Traffic Scenes</title>
+    <title>Action-Slot: Structured Action-Centric
+    Representation Learning for Multi-Agent Atomic
+    Activity Understanding</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -147,9 +147,9 @@
 <body>
 
 <header>
-    <h1>Action-slot: Egocentric Action-centric
-        Representations for Atomic Activity
-        Understanding in Traffic Scenes
+    <h1>Action-Slot: Structured Action-Centric
+    Representation Learning for Multi-Agent Atomic
+    Activity Understanding
     </h1>
     <div class="authors">
         <a href="https://www.linkedin.com/in/yu-ho-chang-91398b223/" class="author-name">Yu-Ho Chang<sup>1</sup></a>, 
@@ -189,30 +189,36 @@
 
 <section>
     <h2>Abstract</h2>
-    <p>In this paper, we study atomic activity understanding, in traffic scenes. Holistically understanding the atomic activity in traffic scenes requires capturing multiple road users’ motions and their contextual information. Drawing inspiration from the recent success of
-        slot attention in unsupervised object discovery by decomposing visual input into individual slots, we propose Action-slot, a slot
-        attention–based framework that learns action-centric visual representations for traffic scene videos. The key idea is to design action
-        slots that selectively attend to regions where atomic activities occur, without requiring explicit object-level guidance. We further
-        introduce a background slot that competes with action slots, encouraging the model to disregard irrelevant background regions. We
-        supervise Action-slot on multi-label atomic activity recognition and propose an attention-guided pseudo mask refinement framework for
-        weakly-supervised localization. The framework leverages Action-slot’s attention maps, using attention differences before and after
-        inpainting the initial pseudo mask area to highlight target regions and reduce false-positive regions from coarse, diffuse attention. To
-        comprehensively evaluate Action-slot, we construct the Traffic Activity Recognition (TACO) dataset, which addresses the class
-        imbalance of OATS inherent from the real-world distribution and further augments it with pixel-level annotations to evaluate localization.
-        Experimental results demonstrate that Action-slot significantly outperforms various recognition models across multiple datasets, and
-        further provide strong guidance for generating pseudo masks for localization combined with our refinement framework, leading to
-        superior performance compared with existing weakly-supervised localization baselines.</p>
+    <p>Atomic activity understanding aims to recognize and localize structured traffic behaviors that jointly encode motion patterns
+and their grounding in road topology. Unlike conventional action recognition, atomic activities are inherently multi-agent, multi-label,
+and topology-aware, where multiple activities may co-occur while many agents remain inactive. This setting calls for structured
+action-centric representation learning, requiring decomposing a scene into semantically meaningful activity components. We introduce
+Action-Slot, a structured action-centric representation learning framework. While slot attention has been widely used for object-centric
+decomposition, its permutation-invariant design and object-level inductive bias are misaligned with atomic activity semantics. We
+reformulate slot learning as structured activity decomposition through three key designs: (1) category-aligned action slots that impose
+semantic anchoring over predefined atomic activity categories, (2) parallel spatio-temporal slot updating for holistic video-level
+reasoning, and (3) background and negative-slot regularization that enforces competition between foreground activities and irrelevant
+regions. Together, these designs establish an activity-centric inductive bias that disentangles concurrent and asynchronous atomic
+activities directly from raw video. Beyond recognition, we show that the learned representations encode transferable spatial grounding
+signals. We further propose an attention-difference–based pseudo mask selection framework that suppresses false positives by
+measuring attention changes before and after candidate region removal, enabling effective weakly supervised localization. To support
+systematic evaluation, we introduce TACO, a balanced dataset with full atomic activity coverage and pixel-level annotations. Extensive
+experiments across synthetic and real-world datasets demonstrate superior recognition performance, cross-domain generalization,
+structured decomposition analysis, and weakly supervised localization. Overall, this work establishes a principled action-centric
+representation learning framework that unifies recognition and spatial reasoning for multi-agent atomic activity understanding.</p>
 </section>
 
 <section>
     <h2>Action-slot for Atomic Activity Understanding</h2>
     <div style="text-align: center; margin-top: 20px;">
-        <img src="./images/PAMI_teaser.jpg" alt="architecture" style="max-width: 100%; border-radius: 8px;">
+        <img src="./images/teaser.jpg" alt="architecture" style="max-width: 100%; border-radius: 8px;">
     </div>
-    <p>Illustration of the proposed Action-slot. In the scene, three atomic activities are presented and depicted by colored arrows. For example,
-        the red arrow is the Z1-Z4: C+ atomic activity, indicating a group of vehicles turning left. We introduce Action-slot that decomposes multiple atomic
-        activities in videos into individual slots. We demonstrate that Action-slot can effectively recognize multiple atomic activities and provide guidance for
-        localizing target activities in complex traffic scenes, given only video-level atomic activity labels.</p>
+    <p><strong>Overview of Action-Slot for Multi-Agent Atomic Activity Understanding.</strong> (a) A multi-agent traffic scene containing multiple concurrent
+atomic activities, illustrated by colored trajectories. For example, the red trajectory corresponds to the atomic activity Z1-Z4: C+, representing a
+group of vehicles turning left along a topologically defined path. (b) Action-Slot decomposes the scene into semantically aligned action slots, each
+capturing one atomic activity without relying on object proposals. (c) The resulting slot representations enable multi-label atomic activity recognition
+by predicting whether each atomic activity category is present in the scene. (d) The learned action slots provide spatial grounding signals that
+enable high-quality pseudo-mask generation for weakly supervised target atomic activity localization.</p>
 </section>
 
 <section>
@@ -220,13 +226,27 @@
         Object Guidance vs. The Proposed Guidance
     </h2>
     <p>
-        We compare object instance mask guidance with Action-slot that is guided with \(L_{bg}\) and \(L_{neg}\) mentioned in Sec. 4.3. . We hpothesize that the object guidance can mislead the model because not all road users are involved in an activity. To verify it, we first create scenarios where presents many static pedestrians. Note that there is no atomic activity presented in the scenarios. Then we visualize the attention from the any slot that predicts false positive. The object-guided model is confused by the static road users and makes false positive predictions. While our Action-slot shows strong robustness in the scenarios
+        We compare object instance mask guidance with Action-slot that is guided with \(L_{bg}\) and \(L_{neg}\) mentioned in Sec. 3.3. . We hpothesize that the object guidance can mislead the model because not all road users are involved in an activity. To verify it, we first create scenarios where presents many static pedestrians. Note that there is no atomic activity presented in the scenarios. Then we visualize the attention from the any slot that predicts false positive. The object-guided model is confused by the static road users and makes false positive predictions. While our Action-slot shows strong robustness in the scenarios
     </p>
     <div style="text-align: center; margin-top: 20px;">
         <img src="./images/fp.gif" alt="architecture" style="max-width: 100%; border-radius: 8px;">
     </div>
 </section>
-    
+
+<section>
+    <h2>Pseudo Refinement for Weakly Supervised Localization</h2>
+
+    <div style="text-align: center; margin-top: 20px;">
+        <img src="./images/Pipeline.jpg" alt="architecture" style="max-width: 100%; border-radius: 8px;">
+    </div>
+
+    <p>
+    <strong>The Overview of the Proposed Pseudo Mask Refinement Framework.</strong> First, we generate the initial pseudo mask by matching the
+    attention map with nearby object masks. To alleviate the false positive resulting from the diffuse or ambiguous attention map, we inpaint the initial
+    pseudo mask region and identify the important regions from the attention difference before and after inpainting, then re-associate with object masks
+    to generate slelected pseudo masks.
+    </p>
+</section>
 
 <section>
     <h2>Localization Results on TACO Dataset</h2>
