@@ -96,6 +96,48 @@
         section {
             margin-bottom: 40px;
         }
+        /* 基礎 section 樣式調整（移除原本過大的 margin，改用 padding 來撐開背景） */
+        section {
+            padding: 40px 20px; /* 上下 40px，左右 20px 的內邊距 */
+            margin-bottom: 0;   /* 移除外邊距，讓背景色能無縫銜接 */
+            border-radius: 8px; /* 稍微加一點圓角，如果你喜歡完全方正可以移除這行 */
+        }
+
+        /* 關鍵：使用 :nth-child(even) 讓偶數的 section 變成淺灰色 */
+        section:nth-child(even) {
+            background-color: #f8f9fa; /* 非常柔和的淺灰色 */
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02) inset; /* 微微的內陰影增加層次感 */
+        }
+        
+        /* 確保奇數的 section 保持透明或白色 */
+        section:nth-child(odd) {
+            background-color: transparent; 
+        }
+
+        /* 調整 h2 標題，確保在有背景色時看起來依然和諧 */
+        h2 {
+            text-align: center;
+            color: #0056b3;
+            border-bottom: none; /* 既然有背景色區分了，就不太需要底線了 */
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            font-size: 1.8em;
+        }
+        .dataset-heading {
+            /* Text styling */
+            font-family: Arial, sans-serif; /* Adjust to match your site's font */
+            font-size: 24px;
+            font-weight: 500; 
+            color: #333333; /* Dark gray text */
+
+            /* The line underneath */
+            border-bottom: 1px solid #cccccc; /* Creates the thin gray line */
+
+            /* Spacing */
+            padding-bottom: 8px; /* Adds space between the text and the line */
+            margin-bottom: 20px; /* Adds space below the line before the next element */
+        }
+
         h2 {
             text-align: center; /* 加上這行讓文字置中 */
             color: #025978;
@@ -126,6 +168,22 @@
             margin-top: 10px;
             font-weight: bold; /* 加入這行讓字體變粗 */
         }
+
+        <!-- /* 摘要區塊的專屬樣式 */
+        .abstract-section {
+            background-color: #f8f9fa; /* 非常柔和的淺灰色 */
+            padding: 30px; /* 讓文字和邊界保持舒適的距離 */
+            border-radius: 12px; /* 圓角設計，與你的按鈕風格呼應 */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3); /* 加上極淡的陰影增加立體感 */
+            margin-bottom: 40px;
+        }
+        
+        /* 讓摘要區塊內的標題不要有底線，看起來更乾淨 */
+        .abstract-section h2 {
+            border-bottom: none;
+            margin-top: 0;
+            padding-bottom: 0;
+        } -->
 
         /* 手機版響應式設計：螢幕寬度小於 600px 時改為單欄排列 */
         @media (max-width: 600px) {
@@ -188,25 +246,26 @@
 </div>
 
 <section>
+<!-- <section class="abstract-section"> -->
     <h2>Abstract</h2>
     <p>Atomic activity understanding aims to recognize and localize structured traffic behaviors that jointly encode motion patterns
-and their grounding in road topology. Unlike conventional action recognition, atomic activities are inherently multi-agent, multi-label,
-and topology-aware, where multiple activities may co-occur while many agents remain inactive. This setting calls for structured
-action-centric representation learning, requiring decomposing a scene into semantically meaningful activity components. We introduce
-Action-Slot, a structured action-centric representation learning framework. While slot attention has been widely used for object-centric
-decomposition, its permutation-invariant design and object-level inductive bias are misaligned with atomic activity semantics. We
-reformulate slot learning as structured activity decomposition through three key designs: (1) category-aligned action slots that impose
-semantic anchoring over predefined atomic activity categories, (2) parallel spatio-temporal slot updating for holistic video-level
-reasoning, and (3) background and negative-slot regularization that enforces competition between foreground activities and irrelevant
-regions. Together, these designs establish an activity-centric inductive bias that disentangles concurrent and asynchronous atomic
-activities directly from raw video. Beyond recognition, we show that the learned representations encode transferable spatial grounding
-signals. We further propose an attention-difference–based pseudo mask selection framework that suppresses false positives by
-measuring attention changes before and after candidate region removal, enabling effective weakly supervised localization. To support
-systematic evaluation, we introduce TACO, a balanced dataset with full atomic activity coverage and pixel-level annotations. Extensive
-experiments across synthetic and real-world datasets demonstrate superior recognition performance, cross-domain generalization,
-structured decomposition analysis, and weakly supervised localization. Overall, this work establishes a principled action-centric
-representation learning framework that unifies recognition and spatial reasoning for multi-agent atomic activity understanding.</p>
-</section>
+    and their grounding in road topology. Unlike conventional action recognition, atomic activities are inherently multi-agent, multi-label,
+    and topology-aware, where multiple activities may co-occur while many agents remain inactive. This setting calls for structured
+    action-centric representation learning, requiring decomposing a scene into semantically meaningful activity components. We introduce
+    Action-Slot, a structured action-centric representation learning framework. While slot attention has been widely used for object-centric
+    decomposition, its permutation-invariant design and object-level inductive bias are misaligned with atomic activity semantics. We
+    reformulate slot learning as structured activity decomposition through three key designs: (1) category-aligned action slots that impose
+    semantic anchoring over predefined atomic activity categories, (2) parallel spatio-temporal slot updating for holistic video-level
+    reasoning, and (3) background and negative-slot regularization that enforces competition between foreground activities and irrelevant
+    regions. Together, these designs establish an activity-centric inductive bias that disentangles concurrent and asynchronous atomic
+    activities directly from raw video. Beyond recognition, we show that the learned representations encode transferable spatial grounding
+    signals. We further propose an attention-difference–based pseudo mask selection framework that suppresses false positives by
+    measuring attention changes before and after candidate region removal, enabling effective weakly supervised localization. To support
+    systematic evaluation, we introduce TACO, a balanced dataset with full atomic activity coverage and pixel-level annotations. Extensive
+    experiments across synthetic and real-world datasets demonstrate superior recognition performance, cross-domain generalization,
+    structured decomposition analysis, and weakly supervised localization. Overall, this work establishes a principled action-centric
+    representation learning framework that unifies recognition and spatial reasoning for multi-agent atomic activity understanding.</p>
+    </section>
 
 <section>
     <h2>Action-slot for Atomic Activity Understanding</h2>
@@ -234,10 +293,25 @@ enable high-quality pseudo-mask generation for weakly supervised target atomic a
 </section>
 
 <section>
+    <h2>Visualization of Attention from Action-slot on Real-world Datasets</h2>
+    <p>
+    We visualize attention from action slots. Distinct colored masks represent the classes of atomic activitiy that the corresponding action slots pay attention to. Action-slot can localize atomic activities by training with weak action labels and without using any perception module (e.g., object detector).
+    </p>
+    <h2 class="dataset-heading">The OATS Dataset [1]</h2>
+    <div style="text-align: center; margin-top: 20px;">
+        <img src="./images/oats_web.gif" alt="architecture" style="max-width: 100%; border-radius: 8px;">
+    </div>
+    <h2 class="dataset-heading">The nuScenes Dataset [2]</h2>
+    <div style="text-align: center; margin-top: 20px;">
+        <img src="./images/nuscenes.gif" alt="architecture" style="max-width: 100%; border-radius: 8px;">
+    </div>
+</section>
+
+<section>
     <h2>Pseudo Mask Refinement for Weakly Supervised Localization</h2>
 
     <div style="text-align: center; margin-top: 20px;">
-        <img src="./images/Pipeline.jpg" alt="architecture" style="max-width: 100%; border-radius: 8px;">
+        <img src="./images/Pipeline_v2.jpg" alt="architecture" style="max-width: 100%; border-radius: 8px;">
     </div>
 
     <p>
@@ -247,6 +321,7 @@ enable high-quality pseudo-mask generation for weakly supervised target atomic a
     to generate slelected pseudo masks.
     </p>
 </section>
+
 
 <section>
     <h2>Localization Results on TACO Dataset</h2>
@@ -273,6 +348,34 @@ enable high-quality pseudo-mask generation for weakly supervised target atomic a
         </div>
     
     </div>
+
+    <div class="gif-matrix">
+        <div class="gif-item">
+            <img src="./images/822_b+-z1-z3.gif" alt="Result Scenario 1">
+            <div class="gif-caption"><em>Z1-Z3:B+</em></div>
+        </div>
+    
+        <div class="gif-item">
+            <img src="./images/823_b+-z4-z1.gif" alt="Result Scenario 1">
+            <div class="gif-caption"><em>Z4-Z1:B+</em></div>
+        </div>
+    
+        <div class="gif-item">
+            <img src="./images/824_p-c4-c3.gif" alt="Result Scenario 1">
+            <div class="gif-caption"><em>C4-C3:P</em></div>
+        </div>
+    
+        <div class="gif-item">
+            <img src="./images/825_p+-c2-c3.gif" alt="Result Scenario 1">
+            <div class="gif-caption"><em>C2:C3:P+</em></div>
+        </div>
+    </div>
+
+    <div class="gif-item">
+            <img src="./images/1241_p+-c1-c4.gif" alt="Result Scenario 1">
+            <div class="gif-caption"><em>C1-C4:P+</em></div>
+        </div>
+
     <p> </p>
 </section>
 
