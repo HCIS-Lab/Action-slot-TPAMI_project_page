@@ -308,14 +308,14 @@ enable high-quality pseudo-mask generation for weakly supervised target atomic a
 </section>
 
 <section>
-    <h2>Pseudo Mask Refinement for Weakly Supervised Localization</h2>
+    <h2>Pseudo Mask Selection for Weakly Supervised Localization</h2>
 
     <div style="text-align: center; margin-top: 20px;">
-        <img src="./images/Pipeline_v2.jpg" alt="architecture" style="max-width: 100%; border-radius: 8px;">
+        <img src="./images/Pipeline.png" alt="architecture" style="max-width: 100%; border-radius: 8px;">
     </div>
 
     <p>
-    <strong>The Overview of the Proposed Pseudo Mask Refinement Framework.</strong> First, we generate the initial pseudo mask by matching the
+    <strong>The Overview of the Proposed Pseudo Mask Selection Framework.</strong> First, we generate the initial pseudo mask by matching the
     attention map with nearby object masks. To alleviate the false positive resulting from the diffuse or ambiguous attention map, we inpaint the initial
     pseudo mask region and identify the important regions from the attention difference before and after inpainting, then re-associate with object masks
     to generate slelected pseudo masks.
